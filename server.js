@@ -1,6 +1,5 @@
 var express = require('express');
 var cors = require('cors');
-
 var app = express();
 
 // your manifest must have appropriate CORS headers, you could also use '*'
