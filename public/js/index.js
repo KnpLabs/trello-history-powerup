@@ -23,20 +23,3 @@ TrelloPowerUp.initialize({
 	      }),
 		}])
 });
-
-
-
-// var creationSuccess = function (data) {
-//   console.log('Card created successfully.');
-//   console.log(JSON.stringify(data, null, 2));
-// };
-//
-// var newCard = {
-//   name: 'New Test Card',
-//   desc: 'This is the description of our new card.',
-//   // Place this card at the top of our list
-//   idList: 1,
-//   pos: 'top'
-// };
-//
-// const getCards = () => window.Trello.post('/cards/', newCard, creationSuccess)

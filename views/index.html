@@ -5,18 +5,9 @@
   </head>
   <body>
     <h1>KNP Trello extension</h1>
-
-    <p>This is the HTML connector for the Power-Up. It will be loaded into a hidden iframe when your Power-Up is enabled.</p>
-
-    <p>Not sure what is going on? Head on over to the <a id="readme" href="https://glitch.com/edit/#!/trello-power-up-skeleton?path=README.md">README</a>.</p>
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://trello.com/1/client.js?key=3fdd940c3f6ea9c4f8ed0817a71b1a4c"></script>
     <script src="https://p.trellocdn.com/power-up.min.js"></script>
     <script src="./js/index.js"></script>
-    <script style="text/javascript">
-      let projectName = window.location.hostname.slice(0, window.location.hostname.length-10)
-      document.getElementById("readme").setAttribute("href", "https://glitch.com/edit/#!/" + projectName + "?path=README.md");
-    </script>
   </body>
 </html>
