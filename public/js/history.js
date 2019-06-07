@@ -1,6 +1,3 @@
-const success = data => console.warn(data)
-const error = data => console.warn(data)
-
 // Connect to trello API
 const authenticationSuccess = () => console.log('Successful authentication')
 const authenticationFailure = () => console.log('Failed authentication')
@@ -17,4 +14,9 @@ window.Trello.authorize({
 		error: authenticationFailure,
 })
 
-window.Trello.get('/cards/CNcJLRUB', success, error);
+// Get card history
+const success = data => console.warn(data)
+const error = data => console.warn(data)
+const cardId = window.location.pathname.split('/')[2];
+console.warn(cardId);
+window.Trello.get(`/cards/${cardId}`, success, error);
