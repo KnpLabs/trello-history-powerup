@@ -6,7 +6,7 @@ var BLACK_ROCKET_ICON = 'https://cdn.glitch.com/1b42d7fe-bda8-4af8-a6c8-eff0cea9
 const authenticationSuccess = () => console.log('Successful authentication')
 const authenticationFailure = () => console.log('Failed authentication')
 
-Trello.authorize({
+window.Trello.authorize({
 		type: 'popup',
 		name: 'KNP Trello Extension',
 		scope: {
