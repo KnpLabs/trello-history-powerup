@@ -7,7 +7,7 @@ window.TrelloPowerUp.initialize({
 	'card-buttons': (t, options) =>
 		t.getRestApi()
 			.getToken()
-			.then(getCardHistory(API_KEY))
+			.then(getCardHistory(API_KEY, t.getContext().card))
 			.then(history => t.set('card', 'shared', 'history', history))
 			.then(() => [{
 		    icon: BLACK_ROCKET_ICON,
@@ -22,11 +22,9 @@ window.TrelloPowerUp.initialize({
 	appName: 'KNP Trello Extension',
 })
 
-// getCardHistory :: String -> String -> Promise
-const getCardHistory = key => token => new Promise((resolve, reject) => {
+// getCardHistory :: (String, String) -> String -> Promise
+const getCardHistory = (key, cardId) => token => new Promise((resolve, reject) => {
 	const xhr = new XMLHttpRequest()
-	// TODO: make this dynamic
-	const cardId = 'CNcJLRUB'
 
 	xhr.open('GET', `https://api.trello.com/1/cards/${cardId}/actions?filter=updateCard:desc&key=${key}&token=${token}`)
 
