@@ -1,7 +1,7 @@
 {
-  "name": "trello-power-up-skeleton",
+  "name": "knp-trello-extension",
   "version": "0.0.1",
-  "description": "A Power-Up skeleton to remix to start building your Power-Up!",
+  "description": "A trello power up that allow you to browse through card history",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -14,7 +14,7 @@
     "node": "6.10.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/trello-power-up-skeleton"
+    "url": "https://github.com/jaljo/knp-trello"
   },
   "license": "MIT",
   "keywords": [
