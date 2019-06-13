@@ -20,18 +20,20 @@ const askAuthorization = t => ({
 
 const renderHistory = t => t.getRestApi()
   .getToken()
-  .then(getCardHistory(t.getRestApi().appKey, t.getContext().card))
-  .then(response => response.json())
-  .then(saveHistoryInLocaleDB)
-  .then(() => ({
-    title: 'History',
-    icon: BLACK_ROCKET_ICON,
-    content: {
-      type: 'iframe',
-      url: t.signUrl('./history.html'),
-      height: 250
-    }
-  }))
+  .then(R.pipeP(
+    getCardHistory(t.getRestApi().appKey, t.getContext().card),
+    response => response.json(),
+    saveHistoryInLocaleDB,
+    () => ({
+      title: 'History',
+      icon: BLACK_ROCKET_ICON,
+      content: {
+        type: 'iframe',
+        url: t.signUrl('./history.html'),
+        height: 250
+      }
+    })
+  ))
   .catch(error => openAuthorizeIframe(t))
 
 window.TrelloPowerUp.initialize({
