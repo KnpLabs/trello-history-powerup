@@ -47,12 +47,14 @@ window.TrelloPowerUp.initialize({
 })
 
 // getCardHistory :: (String, String) -> String -> Promise
-const getCardHistory = (key, cardId) => token => fetch(
-  `https://api.trello.com/1/cards/${cardId}/actions?filter=updateCard:desc&key=${key}&token=${token}`,
-  {
+const getCardHistory = (key, cardId) => token =>
+  fetch(R.join('', [
+    `https://api.trello.com/1/cards/${cardId}/actions`,
+    `?filter=updateCard:desc`,
+    `&key=${key}&token=${token}`
+  ]), {
     method: 'GET',
-  }
-)
+  })
 
 // saveHistoryInLocaleDB :: Object -> Promise
 //
@@ -65,7 +67,7 @@ const getCardHistory = (key, cardId) => token => fetch(
 // The following function is used to bypass this limit: it compress and stores
 // history data in the session storage.
 //
-const saveHistoryInLocaleDB = history => new Promise((resolve, reject) => {
-  sessionStorage.setItem('history', JSON.stringify(history));
-  resolve(history)
-})
+const saveHistoryInLocaleDB = R.pipe(
+  R.tap(history => sessionStorage.setItem('history', JSON.stringify(history))),
+  R.tap(history => new Promise(resolve => resolve(history)))
+)
