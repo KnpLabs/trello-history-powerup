@@ -12,6 +12,7 @@
     width: 32px;
     float: left;
     margin-right: 5px;
+    border-radius: 25em;
 }
 
 #history .header .member-name {
