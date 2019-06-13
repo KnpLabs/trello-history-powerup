@@ -26,19 +26,16 @@ window.TrelloPowerUp.initialize({
 	'card-buttons': (t, options) =>
 		t.getRestApi()
       .isAuthorized()
-      .then(function(isAuthorized) {
-        if (isAuthorized) {
-          return [{
+      .then(isAuthorized => isAuthorized
+        ? [{
             text: 'History',
             callback: showHistory
-          }];
-        } else {
-          return [{
+          }]
+        : [{
             text: 'Authorize',
             callback: openAuthorizeIframe
-          }];
-        }
-      })
+          }]
+      )
 }, {
 	appKey: API_KEY,
 	appName: 'KNP Trello Extension',
