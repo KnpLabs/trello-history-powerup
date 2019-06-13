@@ -1,7 +1,4 @@
-const t = window.TrelloPowerUp.iframe({
-  appKey: '3fdd940c3f6ea9c4f8ed0817a71b1a4c',
-  appName: 'History Power-Up'
-});
+const t = window.TrelloPowerUp.iframe();
 
 const authorize = () =>
   t.getRestApi()
