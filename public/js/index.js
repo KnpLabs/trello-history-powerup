@@ -8,34 +8,38 @@ const openAuthorizeIframe = t => t.popup({
   url: 'authorize.html'
 })
 
-const showHistory = t => t.getRestApi()
+const askAuthorization = t => ({
+  title: 'Authorize to continue',
+  icon: BLACK_ROCKET_ICON,
+  content: {
+    type: 'iframe',
+    url: t.signUrl('./authorize.html'),
+    height: 110
+  }
+})
+
+const renderHistory = t => t.getRestApi()
   .getToken()
   .then(getCardHistory(t.getRestApi().appKey, t.getContext().card))
   .then(history => t.set('card', 'shared', 'history', history))
-  .then(() => [{
+  .then(() => ({
+    title: 'History',
     icon: BLACK_ROCKET_ICON,
-    text: 'History',
-    callback: t => t.popup({
-      title: "History",
-      url: 'history.html',
-    }),
-  }])
+    content: {
+      type: 'iframe',
+      url: t.signUrl('./history.html'),
+      height: 250
+    }
+  }))
   .catch(error => openAuthorizeIframe(t))
 
 window.TrelloPowerUp.initialize({
-  'card-buttons': (t, options) =>
-	 t.getRestApi()
+  'card-back-section': (t, options) => t.getRestApi()
     .isAuthorized()
     .then(isAuthorized => isAuthorized
-      ? [{
-        text: 'History',
-        callback: showHistory
-      }]
-      : [{
-        text: 'Authorize',
-        callback: openAuthorizeIframe
-      }]
-    )
+      ? renderHistory(t)
+      : askAuthorization(t)
+    ),
 }, {
   appKey: API_KEY,
   appName: 'KNP Trello Extension',
