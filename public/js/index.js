@@ -21,7 +21,8 @@ const askAuthorization = t => ({
 const renderHistory = t => t.getRestApi()
   .getToken()
   .then(getCardHistory(t.getRestApi().appKey, t.getContext().card))
-  .then(history => t.set('card', 'shared', 'history', history))
+  .then(response => response.json())
+  .then(saveHistoryInLocaleDB)
   .then(() => ({
     title: 'History',
     icon: BLACK_ROCKET_ICON,
@@ -46,15 +47,25 @@ window.TrelloPowerUp.initialize({
 })
 
 // getCardHistory :: (String, String) -> String -> Promise
-const getCardHistory = (key, cardId) => token => new Promise((resolve, reject) => {
-  const xhr = new XMLHttpRequest()
+const getCardHistory = (key, cardId) => token => fetch(
+  `https://api.trello.com/1/cards/${cardId}/actions?filter=updateCard:desc&key=${key}&token=${token}`,
+  {
+    method: 'GET',
+  }
+)
 
-  xhr.open('GET', `https://api.trello.com/1/cards/${cardId}/actions?filter=updateCard:desc&key=${key}&token=${token}`)
-
-  xhr.onload = () => (xhr.status >= 200 && xhr.status < 300)
-    ? resolve(JSON.parse(xhr.response))
-    : reject(xhr.statusText)
-
-  xhr.onerror = () => reject(xhr.statusText)
-  xhr.send()
+// saveHistoryInLocaleDB :: Object -> Promise
+//
+// Trello natively use t.set() and t.get() methods to pass data a long different
+// scripts involved in running the power up, but it has a 4096 characters limit,
+// which is not enough to carry history data.
+//
+// See https://developers.trello.com/docs/getting-and-setting-custom-data
+//
+// The following function is used to bypass this limit: it compress and stores
+// history data in the session storage.
+//
+const saveHistoryInLocaleDB = history => new Promise((resolve, reject) => {
+  sessionStorage.setItem('history', JSON.stringify(history));
+  resolve(history)
 })

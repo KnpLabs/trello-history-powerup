@@ -1,6 +1,4 @@
-const t = window.TrelloPowerUp.iframe();
-
-// formatDate = String -> String
+// formatDate :: String -> String
 const formatDate = isoDate => (new Date(isoDate)).toLocaleString()
 
 // renderCard :: Card -> _
@@ -23,4 +21,6 @@ const renderCard = card => {
   document.getElementById('history').appendChild(historyElement)
 }
 
-t.get('card', 'shared', 'history').then(cards => cards.map(renderCard))
+const history = JSON.parse(sessionStorage.getItem('history'))
+
+history.map(renderCard)
