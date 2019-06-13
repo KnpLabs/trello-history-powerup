@@ -8,11 +8,10 @@
 }
 
 #history .header .member-avatar {
-    position: absolute;
     height: 32px;
-    left: -40px;
-    top: 4px;
     width: 32px;
+    float: left;
+    margin-right: 5px;
 }
 
 #history .header .member-name {
