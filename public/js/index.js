@@ -9,49 +9,48 @@ const openAuthorizeIframe = t => t.popup({
 })
 
 const showHistory = t => t.getRestApi()
-	.getToken()
-	.then(getCardHistory(API_KEY, t.getContext().card))
-	.then(history => t.set('card', 'shared', 'history', history))
-	.then(() => [{
+  .getToken()
+  .then(getCardHistory(API_KEY, t.getContext().card))
+  .then(history => t.set('card', 'shared', 'history', history))
+  .then(() => [{
     icon: BLACK_ROCKET_ICON,
- 		text: 'History',
+    text: 'History',
     callback: t => t.popup({
-			title: "History",
+      title: "History",
       url: 'history.html',
-  	}),
-	}])
+    }),
+  }])
   .catch(error => openAuthorizeIframe(t))
 
 window.TrelloPowerUp.initialize({
-	'card-buttons': (t, options) =>
-		t.getRestApi()
-      .isAuthorized()
-      .then(isAuthorized => isAuthorized
-        ? [{
-            text: 'History',
-            callback: showHistory
-          }]
-        : [{
-            text: 'Authorize',
-            callback: openAuthorizeIframe
-          }]
-      )
+  'card-buttons': (t, options) =>
+	 t.getRestApi()
+    .isAuthorized()
+    .then(isAuthorized => isAuthorized
+      ? [{
+        text: 'History',
+        callback: showHistory
+      }]
+      : [{
+        text: 'Authorize',
+        callback: openAuthorizeIframe
+      }]
+    )
 }, {
-	appKey: API_KEY,
-	appName: 'KNP Trello Extension',
+  appKey: API_KEY,
+  appName: 'KNP Trello Extension',
 })
 
 // getCardHistory :: (String, String) -> String -> Promise
 const getCardHistory = (key, cardId) => token => new Promise((resolve, reject) => {
-	const xhr = new XMLHttpRequest()
+  const xhr = new XMLHttpRequest()
 
-	xhr.open('GET', `https://api.trello.com/1/cards/${cardId}/actions?filter=updateCard:desc&key=${key}&token=${token}`)
+  xhr.open('GET', `https://api.trello.com/1/cards/${cardId}/actions?filter=updateCard:desc&key=${key}&token=${token}`)
 
-	xhr.onload = () => (xhr.status >= 200 && xhr.status < 300)
-				? resolve(JSON.parse(xhr.response))
-				: reject(xhr.statusText)
+  xhr.onload = () => (xhr.status >= 200 && xhr.status < 300)
+    ? resolve(JSON.parse(xhr.response))
+    : reject(xhr.statusText)
 
-	xhr.onerror = () => reject(xhr.statusText)
-
-	xhr.send()
+  xhr.onerror = () => reject(xhr.statusText)
+  xhr.send()
 })
