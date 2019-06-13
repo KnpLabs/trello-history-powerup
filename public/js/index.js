@@ -3,28 +3,24 @@ const Promise = window.TrelloPowerUp.Promise
 const BLACK_ROCKET_ICON = 'https://cdn.glitch.com/1b42d7fe-bda8-4af8-a6c8-eff0cea9e08a%2Frocket-ship.png?1494946700421'
 const API_KEY = '3fdd940c3f6ea9c4f8ed0817a71b1a4c'
 
-function showIframe(t) {
-  return t.popup({
-    title: 'Authorize to continue',
-    url: 'authorize.html'
-  });
-}
+const openAuthorizeIframe = t => t.popup({
+  title: 'Authorize to continue',
+  url: 'authorize.html'
+})
 
-function showHistory(t) {
-  return t.getRestApi()
-			.getToken()
-			.then(getCardHistory(API_KEY, t.getContext().card))
-			.then(history => t.set('card', 'shared', 'history', history))
-			.then(() => [{
-		    icon: BLACK_ROCKET_ICON,
-		 		text: 'History',
-		    callback: t => t.popup({
-					title: "History",
-		      url: 'history.html',
-		  	}),
-			}])
-  ;
-}
+const showHistory = t => t.getRestApi()
+	.getToken()
+	.then(getCardHistory(API_KEY, t.getContext().card))
+	.then(history => t.set('card', 'shared', 'history', history))
+	.then(() => [{
+    icon: BLACK_ROCKET_ICON,
+ 		text: 'History',
+    callback: t => t.popup({
+			title: "History",
+      url: 'history.html',
+  	}),
+	}])
+  .catch(error => openAuthorizeIframe(t))
 
 window.TrelloPowerUp.initialize({
 	'card-buttons': (t, options) =>
@@ -39,7 +35,7 @@ window.TrelloPowerUp.initialize({
         } else {
           return [{
             text: 'Authorize',
-            callback: showIframe
+            callback: openAuthorizeIframe
           }];
         }
       })
