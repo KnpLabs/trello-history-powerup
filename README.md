@@ -1,37 +1,40 @@
-# Glitch Hosted Sample Trello Power-Up 🚀
+# KNP Trello History Power up
 
-Hey there 👋
+This power up allow you to browse the history of a card, to get the different
+versions of its description through time !
 
-This is a bare-bones template for building a new Trello Power-Up. What does that mean for you? We hope it's a great starting point for you to remix, and make your own great Power-Up that makes Trello work even better for you. 
+## Two words on power ups
 
-Once you remix this, you'll want to take a look at what the new name is. Click the `Show Live` button up in the top bar and grab that url and then head here:
+Power-Ups allow you to bring additional features to your boards and integrate
+your favorite apps right into Trello. They can pull information and data from
+outside services directly into Trello, giving you clear perspective on your
+favorite tools for work.
 
-👉  [https://trello.com/power-ups/admin](https://trello.com/power-ups/admin)
+## How to test
 
-Select the Trello team you want to add the Power-Up to. Note: You need to be an admin of the Trello team to add custom Power-Ups to it.
+First thing, you need to be an administrator of a Trello Team, then head up for
+[the trello Power up managment panel](https://trello.com/power-ups/admin). Here
+you can see the different teams for which you can enable / disable or create new
+power ups. Click on your team name, then click on create a Power-up button.
 
-Now click the `Create new Power-Up` button. If this is your first time creating a Power-Up, you'll need to agree to a "Joint Developer Agreement" first. After you have done that, you just need to give your cool new Power-Up a name, and paste the url link into the field titled `Iframe connector URL` (the one you copied earlier).
+Give your power up a name and select at least the `card-buttons` capability in
+the list.
 
-This Power-Up doesn't make use of any capabilities out of the box, so you'll want to turn on the capabilities you want to use. You'll also need a URL for an icon. You can use the sample one we have here: [https://cdn.glitch.com/2442c68d-7b6d-4b69-9d13-feab530aa88e%2Fglitch-icon.svg?1489773457908](https://cdn.glitch.com/2442c68d-7b6d-4b69-9d13-feab530aa88e%2Fglitch-icon.svg?1489773457908).
+Finally fill the iframe connector URL field with the adress where your power up
+is hosted. We're using [glitch](https://knp-trello-extension.glitch.me/) to host
+the developpment version of this power-up, but feel free to host it in another
+service as long as it's served over HTTPS.
 
-Click `Save` and it's time to celebrate 🎉 🎊
+Once everything is done, go for the menu in one of your team's board, click on
+the Power-Ups entry, your custom power up should show in the *Custom* section
+of the list !
 
-Now when you look at the Power-Ups for any board in that team, your awesome new Power-Up will be available. You can continue to make changes to the Glitch project and you'll see that reflected in Trello (you may just need to refresh).
+## More info
 
----
+This project is built upon the Glitch Hosted Sample Trello Power-Up skeleton,
+you may find the following links usefull to follow along.
 
-Want more information about Power-Ups? 🤔
-
-👉  [https://developers.trello.com/power-ups/intro](https://developers.trello.com/power-ups/intro)
-
-We even have office hours you can sign up for if you want to talk to a real live person about your Power-Up. Just grab a slot that works for you on this [calendar](https://calendly.com/bentley-atlassian/30min).
-
----
-
-Looking for a more _realistic_ example Power-Up? You may find the Trello Card Snooze Power-Up useful. 😴
-
-👉  [Trello Card Snooze Glitch Project](https://glitch.com/edit/#!/trellocardsnooze)
-
----
-
-Icons made by [Freepik](http://www.freepik.com) and [Vectors Market](http://www.flaticon.com/authors/vectors-market) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
+Some usefull resources:
+- [A power up tutorial](https://tech.trello.com/power-up-tutorial-part-one/)
+- [The trello powerup skeleton repo](https://github.com/trello/glitch-trello-power-up)
+- [Trello REST API client](https://developers.trello.com/reference/#rest-api-client)
