@@ -3,9 +3,15 @@ const Promise = window.TrelloPowerUp.Promise
 const BLACK_ROCKET_ICON = 'https://cdn.glitch.com/1b42d7fe-bda8-4af8-a6c8-eff0cea9e08a%2Frocket-ship.png?1494946700421'
 const API_KEY = '3fdd940c3f6ea9c4f8ed0817a71b1a4c'
 
-window.TrelloPowerUp.initialize({
-	'card-buttons': (t, options) =>
-		t.getRestApi()
+function showIframe(t) {
+  return t.popup({
+    title: 'Authorize to continue',
+    url: 'authorize.html'
+  });
+}
+
+function showHistory(t) {
+  return t.getRestApi()
 			.getToken()
 			.then(getCardHistory(API_KEY, t.getContext().card))
 			.then(history => t.set('card', 'shared', 'history', history))
@@ -17,6 +23,26 @@ window.TrelloPowerUp.initialize({
 		      url: 'history.html',
 		  	}),
 			}])
+  ;
+}
+
+window.TrelloPowerUp.initialize({
+	'card-buttons': (t, options) =>
+		t.getRestApi()
+      .isAuthorized()
+      .then(function(isAuthorized) {
+        if (isAuthorized) {
+          return [{
+            text: 'History',
+            callback: showHistory
+          }];
+        } else {
+          return [{
+            text: 'Authorize',
+            callback: showIframe
+          }];
+        }
+      })
 }, {
 	appKey: API_KEY,
 	appName: 'KNP Trello Extension',
