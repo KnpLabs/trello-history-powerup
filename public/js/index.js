@@ -10,7 +10,7 @@ const openAuthorizeIframe = t => t.popup({
 
 const showHistory = t => t.getRestApi()
   .getToken()
-  .then(getCardHistory(API_KEY, t.getContext().card))
+  .then(getCardHistory(t.getRestApi().appKey, t.getContext().card))
   .then(history => t.set('card', 'shared', 'history', history))
   .then(() => [{
     icon: BLACK_ROCKET_ICON,
