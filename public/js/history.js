@@ -37,7 +37,8 @@ t.render(
 // renderCard :: Card -> _
 const renderCard = card => R.pipe(
   R.tap(article => article.innerHTML = createHistory(card)),
-  R.tap(article => document.getElementById('history').appendChild(article)),
+  R.prop('outerHTML'),
+  R.tap(article => document.getElementById('history').innerHTML = article),
 )(document.createElement('article'))
 
 // createHistory :: Card -> String
