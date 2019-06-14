@@ -17,7 +17,7 @@ First thing, you need to be an administrator of a Trello Team, then head up for
 you can see the different teams for which you can enable / disable or create new
 power ups. Click on your team name, then click on create a Power-up button.
 
-Give your power up a name and select at least the `card-buttons` capability in
+Give your power up a name and select at least the `card-back-section` capability in
 the list.
 
 Finally fill the iframe connector URL field with the adress where your power up
