@@ -14,16 +14,24 @@ const getCardHistory = (key, cardId) => token =>
     method: 'GET',
   })
 
+const openAuthorizeIframe = t => t.popup({
+  title: 'Authorize to continue',
+  url: 'authorize.html'
+})
+
 t.render(
   () => t.getRestApi().getToken()
-  .then(getCardHistory(t.getRestApi().appKey, t.getContext().card))
-  .then(response => response.json())
-  .then(R.ifElse(
-    R.compose(R.equals(0), R.length),
-    R.tap(() => document.getElementById('history').innerHTML = `No history for now !`),
-    // drop the first element as it is exactly the same as the description
-    R.compose(R.map(renderCard), R.drop(1)),
+  .then(R.pipeP(
+    getCardHistory(t.getRestApi().appKey, t.getContext().card),
+    response => response.json(),
+    R.ifElse(
+      R.compose(R.equals(0), R.length),
+      R.tap(() => document.getElementById('history').innerHTML = `No history for now !`),
+      // drop the first element as it is exactly the same as the description
+      R.compose(R.map(renderCard), R.drop(1)),
+    )
   ))
+  .catch(error => openAuthorizeIframe(t))
 )
 
 // renderCard :: Card -> _

@@ -1,12 +1,6 @@
 const Promise = window.TrelloPowerUp.Promise
 
 const BLACK_ROCKET_ICON = 'https://cdn.glitch.com/1b42d7fe-bda8-4af8-a6c8-eff0cea9e08a%2Frocket-ship.png?1494946700421'
-const API_KEY = '3fdd940c3f6ea9c4f8ed0817a71b1a4c'
-
-const openAuthorizeIframe = t => t.popup({
-  title: 'Authorize to continue',
-  url: 'authorize.html'
-})
 
 const askAuthorization = t => ({
   title: 'Authorize to continue',
@@ -36,6 +30,6 @@ window.TrelloPowerUp.initialize({
       : askAuthorization(t)
     ),
 }, {
-  appKey: API_KEY,
+  appKey: '3fdd940c3f6ea9c4f8ed0817a71b1a4c',
   appName: 'KNP Trello Extension',
 })
