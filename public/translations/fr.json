@@ -1,0 +1,7 @@
+{
+  "authorize_to_continue":"Historique: autoriser pour continuer",
+  "history":"Historique",
+  "authorize":"Autoriser",
+  "authorization_message":"Cette application nécessite votre autorisation pour accéder à l'historique de cette carte. Cliquez sur le bouton ci-dessous pour accorder l'accès.",
+  "no_history":"Pas d'historique pour le moment"
+}
