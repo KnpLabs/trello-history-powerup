@@ -1,14 +1,34 @@
 const Promise = window.TrelloPowerUp.Promise
 
 const HOURGLASS_ICON = 'https://img.icons8.com/metro/26/000000/historical.png'
+const locale = navigator.language || navigator.userLanguage || 'en';
 
-const local = navigator.language || navigator.userLanguage || 'en';
-const translationsFile = `translations/${local.substring(0,2)}.json`;
-const allowedLocales = ['en', 'fr'];
+window.TrelloPowerUp.initialize({
+  'card-back-section': (t, options) => getTranslations(locale)
+    .then(response => response.json())
+    .then(translations => t.set('organization', 'shared', 'translations', translations))
+    .then(() => t.getRestApi()
+      .isAuthorized()
+      .then(isAuthorized => isAuthorized
+        ? renderHistory(t)
+        : askAuthorization(t)
+      ),
+    )
+}, {
+  appKey: '3fdd940c3f6ea9c4f8ed0817a71b1a4c',
+  appName: 'KNP Trello History',
+})
 
-const getTranslations = () => allowedLocales.includes(local.substring(0,2))
-  ? fetch(translationsFile, {method: 'GET'}).then(response => response.json())
-  : fetch(`translations/en.json`, {method: 'GET'}).then(response => response.json())
+// getTranslations :: String -> Promise
+const getTranslations = R.pipe(
+  locale => locale.substring(0, 2),
+  R.unless(
+    R.contains(R.__, ['en', 'fr']),
+    R.always('en'),
+  ),
+  locale => `translations/${locale}.json`,
+  translationFile => fetch(translationFile, { method: 'GET' }),
+)
 
 const askAuthorization = t => t.get('organization', 'shared', 'translations')
   .then(translations => ({
@@ -30,21 +50,6 @@ const renderHistory = t => t.get('organization', 'shared', 'translations')
       type: 'iframe',
       url: t.signUrl('./history.html'),
       height: 250
-    }
+    },
   })
 )
-
-window.TrelloPowerUp.initialize({
-  'card-back-section': (t, options) =>  getTranslations()
-    .then(translations => t.set('organization', 'shared', 'translations', translations))
-    .then(() => t.getRestApi()
-      .isAuthorized()
-      .then(isAuthorized => isAuthorized
-        ? renderHistory(t)
-        : askAuthorization(t)
-      ),
-    )
-}, {
-  appKey: '3fdd940c3f6ea9c4f8ed0817a71b1a4c',
-  appName: 'KNP Trello History',
-})
