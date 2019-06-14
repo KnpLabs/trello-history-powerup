@@ -86,5 +86,9 @@
 }
 
 #history .content .desc {
-    white-space: pre-wrap;
+    white-space: pre-line;
+}
+
+#history .content .desc * {
+    margin: 0;
 }

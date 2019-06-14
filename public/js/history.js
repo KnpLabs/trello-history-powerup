@@ -30,9 +30,7 @@ const createHistory = card => `
     <h4 class="title">${card['data']['card']['name']}</h4>
   </div>
   <div class="content">
-    <div class="desc">
-      ${(new showdown.Converter()).makeHtml(card['data']['card']['desc'])}
-    </div>
+    <div class="desc">${(new showdown.Converter()).makeHtml(card['data']['card']['desc'])}</div>
   </div>
 `
 
