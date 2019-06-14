@@ -26,8 +26,9 @@ const renderCard = card => R.pipe(
   R.tap(article => document.getElementById('history').appendChild(article)),
 )(document.createElement('article'))
 
-// drop the first element as it is exactly the same as the description
-R.pipe(
-  R.drop(1),
-  R.map(renderCard),
+R.ifElse(
+  R.compose(R.equals(0), R.length),
+  R.tap(() => document.getElementById('history').innerHTML = `No history for now !`),
+  // drop the first element as it is exactly the same as the description
+  R.compose(R.map(renderCard), R.drop(1)),
 )(JSON.parse(sessionStorage.getItem('history')))
