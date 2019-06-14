@@ -53,7 +53,8 @@ const getCardHistory = (key, cardId) => token =>
   fetch(R.join('', [
     `https://api.trello.com/1/cards/${cardId}/actions`,
     `?filter=updateCard:desc`,
-    `&key=${key}&token=${token}`
+    `&key=${key}`,
+    `&token=${token}`,
   ]), {
     method: 'GET',
   })
