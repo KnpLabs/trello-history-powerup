@@ -24,6 +24,7 @@ t.render(
   .then(R.pipeP(
     getCardHistory(t.getRestApi().appKey, t.getContext().card),
     response => response.json(),
+    R.tap(() => document.getElementById('history').innerHTML = ''),
     R.ifElse(
       R.compose(R.equals(0), R.length),
       R.tap(() => document.getElementById('history').innerHTML = `No history for now !`),
@@ -37,8 +38,7 @@ t.render(
 // renderCard :: Card -> _
 const renderCard = card => R.pipe(
   R.tap(article => article.innerHTML = createHistory(card)),
-  R.prop('outerHTML'),
-  R.tap(article => document.getElementById('history').innerHTML = article),
+  R.tap(article => document.getElementById('history').appendChild(article)),
 )(document.createElement('article'))
 
 // createHistory :: Card -> String
