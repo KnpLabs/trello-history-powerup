@@ -1,26 +1,24 @@
-const t = window.TrelloPowerUp.iframe();
-
-// formatDate = String -> String
+// formatDate :: String -> String
 const formatDate = isoDate => (new Date(isoDate)).toLocaleString()
 
+// createHistory :: Card -> String
+const createHistory = card => `
+  <div class="header">
+    <img class="member-avatar" src="${card['memberCreator']['avatarUrl']}/30.png" srcset="${card['memberCreator']['avatarUrl']}/30.png 1x" title="${card['memberCreator']['fullName']} (${card['memberCreator']['username']})">
+    <span class="member-name">${card['memberCreator']['fullName']}</span>
+    <br>
+    <span class="date">${formatDate(card['date'])}</span>
+  </div>
+  <div class="content">
+    <h4 class="title">${card['data']['card']['name']}</h4>
+    <div class="desc">${card['data']['card']['desc']}</div>
+  </div>
+`
+
 // renderCard :: Card -> _
-const renderCard = card => {
-  const historyElement = document.createElement('article')
+const renderCard = card => R.pipe(
+  R.tap(article => article.innerHTML = createHistory(card)),
+  R.tap(article => document.getElementById('history').appendChild(article)),
+)(document.createElement('article'))
 
-  historyElement.innerHTML = `
-    <div class="header">
-      <img class="member-avatar" src="${card['memberCreator']['avatarUrl']}/30.png" srcset="${card['memberCreator']['avatarUrl']}/30.png 1x" title="${card['memberCreator']['fullName']} (${card['memberCreator']['username']})">
-      <span class="member-name">${card['memberCreator']['fullName']}</span>
-      <br>
-      <span class="date">${formatDate(card['date'])}</span>
-    </div>
-    <div class="content">
-      <h4 class="title">${card['data']['card']['name']}</h4>
-      <div class="desc">${card['data']['card']['desc']}</div>
-    </div>
-  `
-
-  document.getElementById('history').appendChild(historyElement)
-}
-
-t.get('card', 'shared', 'history').then(cards => cards.map(renderCard))
+R.map(renderCard, JSON.parse(sessionStorage.getItem('history')))
