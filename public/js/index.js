@@ -1,6 +1,6 @@
 const Promise = window.TrelloPowerUp.Promise
 
-const BLACK_ROCKET_ICON = 'https://cdn.glitch.com/1b42d7fe-bda8-4af8-a6c8-eff0cea9e08a%2Frocket-ship.png?1494946700421'
+const HOURGLASS_ICON = 'https://img.icons8.com/metro/26/000000/historical.png'
 
 const local = navigator.language || navigator.userLanguage || 'en';
 const translationsFile = `translations/${local.substring(0,2)}.json`;
@@ -13,7 +13,7 @@ const getTranslations = () => allowedLocales.includes(local.substring(0,2))
 const askAuthorization = t => t.get('organization', 'shared', 'translations')
   .then(translations => ({
     title: translations.authorize_to_continue,
-    icon: BLACK_ROCKET_ICON,
+    icon: HOURGLASS_ICON,
     content: {
       type: 'iframe',
       url: t.signUrl('./authorize.html'),
@@ -25,7 +25,7 @@ const askAuthorization = t => t.get('organization', 'shared', 'translations')
 const renderHistory = t => t.get('organization', 'shared', 'translations')
   .then(translations => ({
     title: translations.history,
-    icon: BLACK_ROCKET_ICON,
+    icon: HOURGLASS_ICON,
     content: {
       type: 'iframe',
       url: t.signUrl('./history.html'),
