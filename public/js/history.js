@@ -27,7 +27,10 @@ t.render(
     R.tap(() => document.getElementById('history').innerHTML = ''),
     R.ifElse(
       R.compose(R.equals(0), R.length),
-      R.tap(() => document.getElementById('history').innerHTML = `No history for now !`),
+      R.tap(() => t.get('organization', 'shared', 'translations')
+        .then(translations => document.getElementById('history').innerHTML = `
+          <span class="no-history">${translations.no_history}</span>
+        `)),
       // drop the first element as it is exactly the same as the description
       R.compose(R.map(renderCard), R.drop(1)),
     )
