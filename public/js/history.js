@@ -4,15 +4,15 @@ const formatDate = isoDate => (new Date(isoDate)).toLocaleString()
 // createAvatar :: Card -> String
 const createAvatar = card => card['memberCreator']['avatarUrl'] !== null
   ? `<img
-      class="member-avatar" 
-      src="${card['memberCreator']['avatarUrl']}/30.png" 
-      srcset="${card['memberCreator']['avatarUrl']}/30.png 1x" 
+      class="member-avatar"
+      src="${card['memberCreator']['avatarUrl']}/30.png"
+      srcset="${card['memberCreator']['avatarUrl']}/30.png 1x"
       title="${card['memberCreator']['fullName']} (${card['memberCreator']['username']})"
     >`
   : `<div class="phenom-creator">
       <div class="member js-show-mem-menu" idmember="${card['memberCreator']['id']}">
-        <span 
-          class="member-initials" 
+        <span
+          class="member-initials"
           title="${card['memberCreator']['fullName']} (${card['memberCreator']['username']})"
         >
           ${card['memberCreator']['initials']}
@@ -40,9 +40,13 @@ const renderCard = card => R.pipe(
   R.tap(article => document.getElementById('history').appendChild(article)),
 )(document.createElement('article'))
 
-R.ifElse(
-  R.compose(R.equals(0), R.length),
-  R.tap(() => document.getElementById('history').innerHTML = `No history for now !`),
-  // drop the first element as it is exactly the same as the description
-  R.compose(R.map(renderCard), R.drop(1)),
-)(JSON.parse(sessionStorage.getItem('history')))
+R.pipe(
+  LZString.decompress,
+  JSON.parse,
+  R.ifElse(
+    R.compose(R.equals(0), R.length),
+    R.tap(() => document.getElementById('history').innerHTML = `No history for now !`),
+    // drop the first element as it is exactly the same as the description
+    R.compose(R.map(renderCard), R.drop(1)),
+  ),
+)(sessionStorage.getItem('history'))

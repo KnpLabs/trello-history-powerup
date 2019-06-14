@@ -30,6 +30,7 @@ const renderHistory = t => t.getRestApi()
       content: {
         type: 'iframe',
         url: t.signUrl('./history.html'),
+        onload: () => console.warn('loaded'),
         height: 250
       }
     })
@@ -71,6 +72,7 @@ const getCardHistory = (key, cardId) => token =>
 // history data in the session storage.
 //
 const saveHistoryInLocaleDB = R.pipe(
+  R.compose(LZString.compress, JSON.stringify),
   R.tap(history => sessionStorage.setItem('history', JSON.stringify(history))),
   R.tap(history => new Promise(resolve => resolve(history)))
 )
