@@ -1,21 +1,35 @@
 // formatDate :: String -> String
 const formatDate = isoDate => (new Date(isoDate)).toLocaleString()
 
+// createAvatar :: Card -> String
+const createAvatar = card => card['memberCreator']['avatarUrl'] !== null
+  ? `<img
+      class="member-avatar" 
+      src="${card['memberCreator']['avatarUrl']}/30.png" 
+      srcset="${card['memberCreator']['avatarUrl']}/30.png 1x" 
+      title="${card['memberCreator']['fullName']} (${card['memberCreator']['username']})"
+    >`
+  : `<div class="phenom-creator">
+      <div class="member js-show-mem-menu" idmember="${card['memberCreator']['id']}">
+        <span 
+          class="member-initials" 
+          title="${card['memberCreator']['fullName']} (${card['memberCreator']['username']})"
+        >
+          ${card['memberCreator']['initials']}
+        </span>
+      </div>
+    </div>`
+
 // createHistory :: Card -> String
 const createHistory = card => `
   <div class="header">
-    <img
-      class="member-avatar"
-      src="${card['memberCreator']['avatarUrl']}/30.png"
-      srcset="${card['memberCreator']['avatarUrl']}/30.png 1x"
-      title="${card['memberCreator']['fullName']} (${card['memberCreator']['username']})"
-    />
+    ${createAvatar(card)}
     <span class="member-name">${card['memberCreator']['fullName']}</span>
     <br>
     <span class="date">${formatDate(card['date'])}</span>
+    <h4 class="title">${card['data']['card']['name']}</h4>
   </div>
   <div class="content">
-    <h4 class="title">${card['data']['card']['name']}</h4>
     <div class="desc">
       ${(new showdown.Converter()).makeHtml(card['data']['card']['desc'])}
     </div>
