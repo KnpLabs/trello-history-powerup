@@ -3,6 +3,24 @@ const t = window.TrelloPowerUp.iframe({
   appName: 'History Power-Up'
 })
 
+t.render(() => t.get('organization', 'shared', 'translations')
+  .then(renderHistory(t))
+)
+
+const renderHistory = t => translations => t.getRestApi().getToken()
+  .then(R.pipeP(
+    getCardHistory(t.getRestApi().appKey, t.getContext().card),
+    response => response.json(),
+    R.tap(() => document.getElementById('history').innerHTML = ''),
+    R.ifElse(
+      R.compose(R.gt(2), R.length),
+      R.tap(() => noHistory(translations)),
+      // drop the first element as it is exactly the same as the description
+      R.compose(R.map(renderCard), R.drop(1)),
+    ),
+  ))
+  .catch(error => openAuthorizeIframe(t))
+
 // getCardHistory :: (String, String) -> String -> Promise
 const getCardHistory = (key, cardId) => token =>
   fetch(R.join('', [
@@ -19,24 +37,11 @@ const openAuthorizeIframe = t => t.popup({
   url: 'authorize.html'
 })
 
-t.render(
-  () => t.getRestApi().getToken()
-  .then(R.pipeP(
-    getCardHistory(t.getRestApi().appKey, t.getContext().card),
-    response => response.json(),
-    R.tap(() => document.getElementById('history').innerHTML = ''),
-    R.ifElse(
-      R.compose(R.gt(2), R.length),
-      R.tap(() => t.get('organization', 'shared', 'translations')
-        .then(translations => document.getElementById('history').innerHTML = `
-          <span class="no-history">${translations.no_history}</span>
-        `)),
-      // drop the first element as it is exactly the same as the description
-      R.compose(R.map(renderCard), R.drop(1)),
-    )
-  ))
-  .catch(error => openAuthorizeIframe(t))
-)
+// noHistory :: String -> String
+const noHistory = translations =>
+  document.getElementById('history').innerHTML = `
+    <span class="no-history">${translations.no_history}</span>
+  `
 
 // renderCard :: Card -> _
 const renderCard = card => R.pipe(
