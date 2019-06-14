@@ -26,7 +26,7 @@ t.render(
     response => response.json(),
     R.tap(() => document.getElementById('history').innerHTML = ''),
     R.ifElse(
-      R.compose(R.equals(0), R.length),
+      R.compose(R.gt(2), R.length),
       R.tap(() => t.get('organization', 'shared', 'translations')
         .then(translations => document.getElementById('history').innerHTML = `
           <span class="no-history">${translations.no_history}</span>
