@@ -3,6 +3,7 @@ const t = window.TrelloPowerUp.iframe({
   appName: 'KNP Trello History'
 });
 
+// authorize :: () -> _
 const authorize = () =>
   t.getRestApi()
     .authorize({ scope: 'read,write' })

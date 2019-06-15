@@ -7,6 +7,7 @@ t.render(() => t.get('organization', 'shared', 'translations')
   .then(renderHistory(t))
 )
 
+// renderHistory :: Object -> String -> _
 const renderHistory = t => translations => t.getRestApi().getToken()
   .then(R.pipeP(
     getCardHistory(t.getRestApi().appKey, t.getContext().card),
@@ -32,12 +33,13 @@ const getCardHistory = (key, cardId) => token =>
     method: 'GET',
   })
 
+// openAuthorizeIframe :: Object -> _
 const openAuthorizeIframe = t => t.popup({
   title: 'Authorize to continue',
   url: 'authorize.html'
 })
 
-// noHistory :: String -> String
+// noHistory :: String -> _
 const noHistory = translations =>
   document.getElementById('history').innerHTML = `
     <span class="no-history">${translations.no_history}</span>
