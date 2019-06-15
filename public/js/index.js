@@ -30,6 +30,7 @@ const getTranslations = R.pipe(
   translationFile => fetch(translationFile, { method: 'GET' }),
 )
 
+// askAuthorization :: Object -> Object
 const askAuthorization = t => t.get('organization', 'shared', 'translations')
   .then(translations => ({
     title: translations.authorize_to_continue,
@@ -42,6 +43,7 @@ const askAuthorization = t => t.get('organization', 'shared', 'translations')
   })
 )
 
+// renderHistory :: Object -> Object
 const renderHistory = t => t.get('organization', 'shared', 'translations')
   .then(translations => ({
     title: translations.history,
