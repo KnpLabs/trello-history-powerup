@@ -13,6 +13,7 @@ const renderHistory = t => translations => t.getRestApi().getToken()
     getCardHistory(t.getRestApi().appKey, t.getContext().card),
     response => response.json(),
     R.tap(() => document.getElementById('history').innerHTML = ''),
+    R.tap(() => toggleHistory(translations)),
     R.ifElse(
       R.compose(R.gt(2), R.length),
       R.tap(() => noHistory(translations)),
@@ -21,6 +22,20 @@ const renderHistory = t => translations => t.getRestApi().getToken()
     ),
   ))
   .catch(error => openAuthorizeIframe(t))
+
+const toggleHistory = function(translations) {
+  document.querySelector('button.load').innerHTML = translations.show_history;
+  document.querySelector('button.load').style.display = 'block';
+
+  document.querySelector('button.load').addEventListener('click', function() {
+    let historyVisible = document.getElementById('history').style.display === 'block';
+
+    document.querySelector('button.load').innerHTML = historyVisible ? translations.show_history : translations.hide_history;
+    document.querySelector('button.load').classList.remove(historyVisible ? 'float' : 'middle');
+    document.querySelector('button.load').classList.add(historyVisible ? 'middle' : 'float');
+    document.getElementById('history').style.display = historyVisible ? 'none' : 'block';
+  });
+}
 
 // getCardHistory :: (String, String) -> String -> Promise
 const getCardHistory = (key, cardId) => token =>

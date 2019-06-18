@@ -3,5 +3,7 @@
   "history":"History",
   "authorize":"Authorize",
   "authorization_message":"This application needs your authorization to access this card history. Click the button below to grant access.",
-  "no_history":"No history for now"
+  "no_history":"No history for now",
+  "show_history":"Show history",
+  "hide_history":"Hide history"
 }
