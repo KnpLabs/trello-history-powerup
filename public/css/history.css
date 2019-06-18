@@ -2,7 +2,26 @@
     margin: 0;
 }
 
+.history-body button.load {
+    display: none;
+}
+
+.history-body button.load.float {
+    position: fixed;
+    top: 0;
+    right: 5px;
+    padding: 5px 10px;
+    margin: 0;
+    font-size: 10px;
+    z-index: 1;
+}
+
+.history-body button.load.middle {
+    margin: 40px auto
+}
+
 #history {
+    display: none;
     padding: 5px;
 }
 
