@@ -23,14 +23,17 @@ const renderHistory = t => translations => t.getRestApi().getToken()
   ))
   .catch(error => openAuthorizeIframe(t))
 
-const toggleHistory = function(translations) {
+const toggleHistory = translations => {
   document.querySelector('button.load').innerHTML = translations.show_history;
   document.querySelector('button.load').style.display = 'block';
 
-  document.querySelector('button.load').addEventListener('click', function() {
-    let historyVisible = document.getElementById('history').style.display === 'block';
+  document.querySelector('button.load').addEventListener('click', () => {
+    const historyVisible = document.getElementById('history').style.display === 'block';
 
-    document.querySelector('button.load').innerHTML = historyVisible ? translations.show_history : translations.hide_history;
+    document.querySelector('button.load').innerHTML = historyVisible 
+      ? translations.show_history 
+      : translations.hide_history
+    ;
     document.querySelector('button.load').classList.remove(historyVisible ? 'float' : 'middle');
     document.querySelector('button.load').classList.add(historyVisible ? 'middle' : 'float');
     document.getElementById('history').style.display = historyVisible ? 'none' : 'block';
