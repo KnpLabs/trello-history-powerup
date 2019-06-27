@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  app:
+    image: i24-reader:app-dev
+    build:
+      context: ../
+      dockerfile: .docker/app/Dockerfile
+      target: prod
+    command: 'yarn start'
+    tty: true
+    volumes:
+      - ./../:/app
+    ports:
+      - published: 3001
+        target: 3000
+        protocol: tcp
+        mode: host
