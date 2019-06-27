@@ -2,13 +2,10 @@ version: '3.4'
 
 services:
   app:
-    image: i24-reader:app-dev
+    image: knp-trello-pu:app
     build:
       context: ../
       dockerfile: .docker/app/Dockerfile
-      target: prod
-    command: 'yarn start'
-    tty: true
     volumes:
       - ./../:/app
     ports:

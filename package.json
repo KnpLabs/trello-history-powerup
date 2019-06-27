@@ -10,11 +10,8 @@
     "cors": "^2.8.3",
     "express": "^4.15.2"
   },
-  "engines": {
-    "node": "6.10.x"
-  },
   "repository": {
-    "url": "https://github.com/jaljo/knp-trello"
+    "url": "https://github.com/KnpLabs/trello-history-powerup/"
   },
   "license": "MIT",
   "keywords": [
