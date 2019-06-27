@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   app:
-    image: knp-trello-pu:app
+    image: knplabs/trello-history-powerup
     build:
       context: ../
       dockerfile: .docker/app/Dockerfile
