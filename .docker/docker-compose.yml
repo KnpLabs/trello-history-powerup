@@ -6,10 +6,3 @@ services:
     build:
       context: ../
       dockerfile: .docker/app/Dockerfile
-    volumes:
-      - ./../:/app
-    # ports:
-    #   - published: 3001
-    #     target: 3000
-    #     protocol: tcp
-    #     mode: host
