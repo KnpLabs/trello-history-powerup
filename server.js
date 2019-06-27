@@ -1,6 +1,9 @@
 var express = require('express');
 var cors = require('cors');
 var app = express();
+var dotenv = require('dotenv');
+
+dotenv.config();
 
 // your manifest must have appropriate CORS headers, you could also use '*'
 app.use(cors({ origin: '*' }));
