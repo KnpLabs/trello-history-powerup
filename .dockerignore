@@ -1,0 +1,9 @@
+# ignore all by default
+*
+
+!public/
+!views/
+!.env.dist
+!package.json
+!server.js
+!yarn.lock
