@@ -17,17 +17,22 @@ First thing, you need to be an administrator of a Trello Team, then head up for
 you can see the different teams for which you can enable / disable or create new
 power ups. Click on your team name, then click on create a Power-up button.
 
-Give your power up a name and select at least the `card-back-section` capability in
-the list.
+Give your power up a name and select at least the `card-back-section` capability
+in the list.
 
 Finally fill the iframe connector URL field with the adress where your power up
-is hosted. We're using [glitch](https://knp-trello-extension.glitch.me/) to host
-the developpment version of this power-up, but feel free to host it in another
+is hosted. You can use [serveo](https://serveo.net/) to expose your local
+developpment version of this power-up, but feel free to host it in another
 service as long as it's served over HTTPS.
 
 Once everything is done, go for the menu in one of your team's board, click on
 the Power-Ups entry, your custom power up should show in the *Custom* section
 of the list !
+
+## Production environment
+
+The production version of this application is hosted in an amazon S3
+[bucket](https://trello-history-powerup.s3.eu-west-3.amazonaws.com/index.html).
 
 ## More info
 
