@@ -29,6 +29,11 @@ Once everything is done, go for the menu in one of your team's board, click on
 the Power-Ups entry, your custom power up should show in the *Custom* section
 of the list !
 
+## Production environment
+
+The production version of this application is hosted in an amazon S3
+[bucket](https://trello-history-powerup.s3.eu-west-3.amazonaws.com/index.html).
+
 ## More info
 
 This project is built upon the Glitch Hosted Sample Trello Power-Up skeleton,
