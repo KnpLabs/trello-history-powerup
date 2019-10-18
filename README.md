@@ -43,3 +43,11 @@ Some usefull resources:
 - [A power up tutorial](https://tech.trello.com/power-up-tutorial-part-one/)
 - [The trello powerup skeleton repo](https://github.com/trello/glitch-trello-power-up)
 - [Trello REST API client](https://developers.trello.com/reference/#rest-api-client)
+
+
+## Maintainers
+Please read [this post](https://knplabs.com/en/blog/news-for-our-foss-projects-maintenance) first.
+
+This library is maintained by the following people (alphabetically sorted) :
+- [EVDW](https://github.com/EVDW)
+- [jaljo](https://github.com/jaljo)
